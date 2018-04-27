@@ -3,25 +3,16 @@
 ###############################################################################
 variable "region" {}
 variable "env" {}
-variable "account_id" {}
 variable "key_path" {}
 variable "key_name" {}
-variable "ec2_bastion_instance_type" {}
-variable "ec2_bastion_user" {}
 variable "state_bucket" {}
-variable "kms_key_id" {}
-variable "ip_allow1" {}
-variable "ip_allow2" {}
-variable "ip_allow3" {}
-variable "ip_allow4" {}
-variable "ip_allow5" {}
 
 variable "cred-file" {
   default = "~/.aws/credentials"
 }
 
 variable "namespace" {
-  default = "awscloud.io"
+  default = "privatenamespace"
 }
 variable "name" {
   default = "testkey"
@@ -48,7 +39,7 @@ module "ssh_key_pair" {
   namespace = "${var.namespace}"
   stage     = "${var.env}"
   name      = "${var.name}"
-  ssh_public_key_path   = "~/Downloads"
+  ssh_public_key_path   = "/Users/oleggorj/Downloads/"
   generate_ssh_key      = "true"
   private_key_extension = ".pem"
   public_key_extension  = ".pub"
