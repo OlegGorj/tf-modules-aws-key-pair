@@ -24,7 +24,7 @@ variable "namespace" {
   default = "awscloud.io"
 }
 variable "name" {
-  default = "testcluster"
+  default = "testkey"
 }
 
 ###############################################################################
@@ -43,8 +43,14 @@ provider "aws" {
   profile                  = "${var.env}"
 }
 
-
-#resource "aws_key_pair" "key" {
-#  key_name   = "${var.key_name}"
-#  public_key = "${file("~/.ssh/dev_key.pub")}"
-#}
+module "ssh_key_pair" {
+  source    = "git::https://github.com/OlegGorj/tf-modules-aws-key-pair.git?ref=dev-branch"
+  namespace = "${var.namespace}"
+  stage     = "${var.env}"
+  name      = "${var.name}"
+  ssh_public_key_path   = "~/Downloads"
+  generate_ssh_key      = "true"
+  private_key_extension = ".pem"
+  public_key_extension  = ".pub"
+  chmod_command         = "chmod 600 %v"
+}
