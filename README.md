@@ -26,5 +26,34 @@ export AWS_STATE_BUCKET="tf-state-bucket"
 
 ```
 
+Init terraform:
+
+```bash
+
+# example of usage is located under ./test directory
+cd test
+
+terraform init  \
+    -backend-config="bucket=ca-central-1.aws-terraform-state-bucket" \
+    -backend-config="key=terraform/dev/tf.tfstate" \
+    -backend-config="region=ca-central-1" \
+    -backend-config="profile=dev"  \
+    -var-file=../environments/dev/dev.tfvars
+
+```
+
+Plan terraform:
+
+```bash
+terraform plan -var-file=../environments/dev/dev.tfvars -out=./terraform
+```
+
+Apply terraform:
+
+```bash
+terraform apply -var-file=../environments/dev/dev.tfvars
+```
+
+
 
 ---
